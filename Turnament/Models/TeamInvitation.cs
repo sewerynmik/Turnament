@@ -6,8 +6,8 @@ public class TeamInvitation
     public int TeamId { get; set; }
     public int InvitedUserId { get; set; }
     public int InvitedByUserId { get; set; }
-    public string Status { get; set; } = "pending";
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public string Status { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public Team Team { get; set; } = null!;
     public User InvitedUser { get; set; } = null!;

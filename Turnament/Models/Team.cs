@@ -5,7 +5,7 @@ public class Team
     public int Id { get; set; }
     public string Name { get; set; } = null!;
     public int CreatorId { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
 
     public User Creator { get; set; } = null!;
 

@@ -10,7 +10,7 @@ public class Tournament
     public int CreatorId { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
-    public int WinnerTeamId { get; set; }
+    public int? WinnerTeamId { get; set; }
 
     public Sport Sport { get; set; } = null!;
     public BracketType BracketType { get; set; } = null!;

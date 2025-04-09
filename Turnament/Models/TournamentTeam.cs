@@ -6,6 +6,6 @@ public class TournamentTeam
     public int TournamentId { get; set; }
     public int TeamId { get; set; }
 
-    public Tournament Tournament = new Tournament();
-    public Team Team = new Team();
+    public Tournament Tournament { get; set; } = null!;
+    public Team Team { get; set; } = null!;
 }

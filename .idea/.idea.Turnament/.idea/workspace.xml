@@ -8,7 +8,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ba7d812-a1e9-46af-9506-ea79088f4003" name="Changes" comment="" />
+    <list default="true" id="8ba7d812-a1e9-46af-9506-ea79088f4003" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/BracketType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/BracketType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/Match.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/Match.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/Sport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/Sport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/Team.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/Team.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/TeamInvitation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/TeamInvitation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/TeamMember.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/TeamMember.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/Tournament.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/Tournament.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Models/TournamentTeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/TournamentTeam.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,9 +31,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2vT1KMtBRc5ehXlE1SdPacvAvI7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -28,6 +43,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
@@ -37,6 +53,13 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.ASP.NET",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\user\\AppData\\Local\\Symbols\\src"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Turnament: http">
@@ -80,12 +103,14 @@
       <option name="presentableId" value="Default" />
       <updated>1744154185815</updated>
       <workItem from="1744154187048" duration="1491000" />
+      <workItem from="1744195897100" duration="2406000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

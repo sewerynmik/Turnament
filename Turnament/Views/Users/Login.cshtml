@@ -1,2 +1,21 @@
-﻿@model TModel
+﻿@{
+    ViewData["title"] = "Logowanie";
+}
+
+
+<div class="container mt-5" style="max-width: 400px">
+    <form asp-action="Login" method="post">
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" class="form-control" id="email" required>
+        </div>
+        
+        <div class="form-group mt-2">
+            <label >Hasło:</label>
+            <input type="password" class="form-control" id="pass" required="">
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-2">Zaloguj</button>
+    </form>
+</div>
 

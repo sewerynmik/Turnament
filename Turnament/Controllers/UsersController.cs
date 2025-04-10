@@ -174,6 +174,14 @@ public class UsersController(AppDbContext context) : Controller
         return View();
     }
 
+    [HttpPost]
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Remove("userId");
+
+        return RedirectToAction("Index", "Home");
+    }
+
     public IActionResult Register()
     {
         return View();
@@ -182,11 +190,27 @@ public class UsersController(AppDbContext context) : Controller
     [HttpPost]
     public async Task<IActionResult> Register(string username, string email, string pass)
     {
-        if (context.Users.FirstOrDefaultAsync(u => username != null && u.Username == username) != null)
+        if (await context.Users.FirstOrDefaultAsync(u => u.Username == username) != null)
         {
-            //TODO
+            return RedirectToAction("Index", "Home");
         }
 
-        return View();
+        if (await context.Users.FirstOrDefaultAsync(u => u.Email == email) != null)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        var user = new User
+        {
+            Username = username,
+            Email = email,
+            PassHash = BCrypt.Net.BCrypt.HashPassword(pass),
+            CreatedAt = DateTime.UtcNow
+        };
+
+        await context.Users.AddAsync(user);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Home");
     }
 }

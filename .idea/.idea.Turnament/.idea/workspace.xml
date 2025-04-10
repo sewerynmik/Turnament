@@ -9,13 +9,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ba7d812-a1e9-46af-9506-ea79088f4003" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Turnament/Views/Users/Login.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2025_15_55__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/shelf/Uncommitted_changes_before_Update_at_09_04_2025_15_55__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Turnament.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Turnament.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/BracketTypes/Create.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/BracketTypes/Delete.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/BracketTypes/Details.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/BracketTypes/Edit.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/BracketTypes/Index.cshtml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Login.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +61,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.Turnament: http.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
@@ -66,6 +72,13 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.ASP.NET",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\user\\AppData\\Local\\Symbols\\src"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Turnament: http">
@@ -110,6 +123,7 @@
       <updated>1744154185815</updated>
       <workItem from="1744154187048" duration="1491000" />
       <workItem from="1744236885256" duration="3034000" />
+      <workItem from="1744279999109" duration="8262000" />
     </task>
     <servers />
   </component>

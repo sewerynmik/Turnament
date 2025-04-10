@@ -8,13 +8,13 @@ public class User
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PassHash { get; set; } = null!;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
 
-    public ICollection<TeamMember> TeamMemberships = new List<TeamMember>();
-    public ICollection<TeamInvitation> ReceivedInvitations = new List<TeamInvitation>();
-    public ICollection<TeamInvitation> SentInvitations = new List<TeamInvitation>();
-    public ICollection<Tournament> CreatedTournaments = new List<Tournament>();
-    public ICollection<Team> CreatedTeams = new List<Team>();
+    public ICollection<TeamMember> TeamMemberships { get; set; } = new List<TeamMember>();
+    public ICollection<TeamInvitation> ReceivedInvitations { get; set; } = new List<TeamInvitation>();
+    public ICollection<TeamInvitation> SentInvitations { get; set; } = new List<TeamInvitation>();
+    public ICollection<Tournament> CreatedTournaments { get; set; } = new List<Tournament>();
+    public ICollection<Team> CreatedTeams { get; set; } = new List<Team>();
 }
 
 /*

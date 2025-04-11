@@ -9,18 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Turnament/ViewModel/User/LoginViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turnament/ViewModel/User/RegisterViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Models/TeamInvitation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/TeamInvitation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Models/TeamMember.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/TeamMember.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Create.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Login.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +93,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744380289595</updated>
-      <workItem from="1744380291048" duration="6599000" />
+      <workItem from="1744380291048" duration="9180000" />
     </task>
     <servers />
   </component>

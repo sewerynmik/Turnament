@@ -4,29 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-5" style="max-width: 400px">
+<h1>Gracze</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Username)
+                Nazwa użytkownika
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
+            <td style="">
+                <a>@item.Username</a>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
+            <td style="text-align: right">
+                <a asp-area="" asp-controller="Users" asp-action="Details" asp-route-id="@item.Id" class="btn btn-success flex-shrink-2">Zobacz profil</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>

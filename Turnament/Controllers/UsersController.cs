@@ -23,6 +23,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // GET: Users/Details/5
+    [Route("/Users/{id}")]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)

@@ -1,49 +1,47 @@
-@model Turnament.Models.User
-
+@using Turnament.ViewModel.User
+@model Turnament.ViewModel.User.EditViewModel
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5" style="max-width: 400px">
+    <h1>Edytuj dane konta</h1>
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PassHash" class="control-label"></label>
-                <input asp-for="PassHash" class="form-control" />
-                <span asp-validation-for="PassHash" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <hr/>
+    <form asp-action="Edit" style="display: flex; flex-direction: column">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id"/>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="form-group">
+            <label asp-for="Username" class="control-label"></label>
+            <input asp-for="Username" class="form-control"/>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-2">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-2">
+            <label asp-for="Pass" class="control-label"></label>
+            <input asp-for="Pass" class="form-control"/>
+            <span asp-validation-for="Pass" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="PassConfirm" class="control-label"></label>
+            <input asp-for="PassConfirm" class="form-control"/>
+            <span asp-validation-for="PassConfirm" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2" style="align-self: center">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-danger">Anuluj</a>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+        </div>
+    </form>
+
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

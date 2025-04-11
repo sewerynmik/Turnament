@@ -41,7 +41,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(user);
     }
 
-    // GET: Users/Create
+    /*// GET: Users/Create
     public IActionResult Create()
     {
         return View();
@@ -61,7 +61,7 @@ public class UsersController(AppDbContext context) : Controller
             return RedirectToAction(nameof(Index));
         }
         return View(user);
-    }
+    }*/
 
     // GET: Users/Edit/5
     public async Task<IActionResult> Edit(int? id)
@@ -72,11 +72,20 @@ public class UsersController(AppDbContext context) : Controller
         }
 
         var user = await context.Users.FindAsync(id);
+        
         if (user == null)
         {
             return NotFound();
         }
-        return View(user);
+
+        var model = new EditViewModel
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Username = user.Username
+        };
+        
+        return View(model);
     }
 
     // POST: Users/Edit/5
@@ -84,34 +93,36 @@ public class UsersController(AppDbContext context) : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Email,PassHash,CreatedAt")] User user)
+    public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
-        if (id != user.Id)
+        if (id != model.Id)
         {
             return NotFound();
         }
 
-        if (ModelState.IsValid)
+        if (await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Id != id) != null)
         {
-            try
-            {
-                context.Update(user);
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(user.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Użytkownik z takim adresem email jest zarejestrowany.");
+            return View(model);
         }
-        return View(user);
+        
+        if (await context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Id != id) != null)
+        {
+            ModelState.AddModelError("", "Użytkownik z takim adresem email jest zarejestrowany.");
+            return View(model);
+        }
+
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null) return NotFound();
+
+        user.Username = model.Username;
+        user.Email = model.Email;
+        user.PassHash = BCrypt.Net.BCrypt.HashPassword(model.Pass);
+
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index");
     }
 
     // GET: Users/Delete/5

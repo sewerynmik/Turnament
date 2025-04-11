@@ -6,7 +6,7 @@ public class TeamInvitation
     public int TeamId { get; set; }
     public int InvitedUserId { get; set; }
     public int InvitedByUserId { get; set; }
-    public string Status { get; set; }
+    public string Status { get; set; } = null!;
     public DateTime CreatedAt { get; set; }
 
     public Team Team { get; set; } = null!;

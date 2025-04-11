@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Turnament.Data;
 using Turnament.Models;
+using Turnament.ViewModel.User;
 
 namespace Turnament.Controllers;
 
 public class UsersController(AppDbContext context) : Controller
 {
+    
     // GET: Users
     public async Task<IActionResult> Index()
     {
@@ -153,33 +157,40 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string pass)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
-        var user = await context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+        
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
 
         if (user == null)
         {
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError(nameof(model.Email), "Użytkowanik z takim adresem email nie istnieje.");
+            return View(model);
         }
 
-        var isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pass, user.PassHash);
+        var isPasswordCorrect = BCrypt.Net.BCrypt.Verify(model.Pass, user.PassHash);
 
         if (!isPasswordCorrect)
         {
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError(nameof(model.Pass), "Nieprawidłowe hasło");
+            return View(model);
         }
+
+        await LoginUser(user.Id, user.Username, user.Email);
         
-        HttpContext.Session.SetString("userId", user.Id.ToString());
-        
-        return View();
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        HttpContext.Session.Remove("userId");
+        await HttpContext.SignOutAsync("MyAuth");
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Login", "Users");
     }
 
     public IActionResult Register()
@@ -188,29 +199,59 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(string username, string email, string pass)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
-        if (await context.Users.FirstOrDefaultAsync(u => u.Username == username) != null)
+        if (!ModelState.IsValid)
         {
-            return RedirectToAction("Index", "Home");
+            return View(model);
+        }
+        
+        if (await context.Users.FirstOrDefaultAsync(u => u.Username == model.Username) != null)
+        {
+            ModelState.AddModelError("", "Nazwa użytkownika jest już zajęta.");
+            return View();
         }
 
-        if (await context.Users.FirstOrDefaultAsync(u => u.Email == email) != null)
+        if (await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email) != null)
         {
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "Email jest już zarejestrowany");
+            return View();
+        }
+
+        if (model.Username == null || model.Email == null || model.Pass == null)
+        {
+            ModelState.AddModelError("", "Usp... Coś poszło nie tak spróbuj później");
+            return View();
         }
 
         var user = new User
         {
-            Username = username,
-            Email = email,
-            PassHash = BCrypt.Net.BCrypt.HashPassword(pass),
+            Username = model.Username,
+            Email = model.Email,
+            PassHash = BCrypt.Net.BCrypt.HashPassword(model.Pass),
             CreatedAt = DateTime.UtcNow
         };
 
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
 
+        await LoginUser(user.Id, user.Username, user.Email);
+
         return RedirectToAction("Index", "Home");
+    }
+
+    private async Task LoginUser(int id, string username, string email)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, id.ToString()),
+            new Claim(ClaimTypes.Email, email),
+            new Claim(ClaimTypes.Name, username)
+        };
+
+        var identity = new ClaimsIdentity(claims, "MyAuth");
+        var principal = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync("MyAuth", principal);
     }
 }

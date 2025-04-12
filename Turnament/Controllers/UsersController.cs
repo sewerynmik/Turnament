@@ -163,12 +163,14 @@ public class UsersController(AppDbContext context) : Controller
         return context.Users.Any(e => e.Id == id);
     }
         
+    [Route("/Login")]
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
+    [Route("/Login")]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         if (!ModelState.IsValid)
@@ -198,6 +200,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     [HttpPost]
+    [Route("/Logout")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync("MyAuth");
@@ -205,12 +208,14 @@ public class UsersController(AppDbContext context) : Controller
         return RedirectToAction("Login", "Users");
     }
 
+    [Route("/Register")]
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
+    [Route("/Register")]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (!ModelState.IsValid)

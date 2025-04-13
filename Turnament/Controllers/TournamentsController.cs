@@ -18,7 +18,12 @@ namespace Turnament.Controllers
         // GET: Tournaments
         public async Task<IActionResult> Index()
         {
-            var appDbContext = context.Tournaments.Include(t => t.BracketType).Include(t => t.Creator).Include(t => t.Sport).Include(t => t.WinnerTeam);
+            var appDbContext = context.Tournaments
+                .Include(t => t.BracketType)
+                .Include(t => t.Creator)
+                .Include(t => t.Sport)
+                .Include(t => t.WinnerTeam);
+            
             return View(await appDbContext.ToListAsync());
         }
 
@@ -36,6 +41,7 @@ namespace Turnament.Controllers
                 .Include(t => t.Sport)
                 .Include(t => t.WinnerTeam)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (tournament == null)
             {
                 return NotFound();

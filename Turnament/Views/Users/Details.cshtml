@@ -6,7 +6,12 @@
 }
 
 <div class="container" style="max-width: 600px">
-    <h1>@Model.Username</h1>
+    <div>
+        <h1>@Model.Username</h1>
+
+        <a class="btn btn-info" asp-controller="Users" asp-action="Tournaments" asp-route-id="@Model.Id">Turnieje</a>
+        <a class="btn btn-info" asp-controller="Users" asp-action="Teams" asp-route-id="@Model.Id">Drużyny</a>
+    </div>
 
     <div>
         <hr/>

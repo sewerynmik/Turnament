@@ -9,14 +9,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Turnament/Views/Users/Tournaments.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/User/LoginViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/User/LoginViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/User/RegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/User/RegisterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Edit.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Register.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Details.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +49,9 @@
     &quot;accountId&quot;: &quot;3cda98ad-42f6-4b9c-8cf1-5f9e1ab58801&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://D:/apetor/Turnament/Turnament/Views/Tournaments/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -99,6 +103,11 @@
       <option name="presentableId" value="Default" />
       <updated>1744380289595</updated>
       <workItem from="1744380291048" duration="9180000" />
+      <workItem from="1744448011393" duration="3641000" />
+      <workItem from="1744454724867" duration="3185000" />
+      <workItem from="1744476910279" duration="23000" />
+      <workItem from="1744495721254" duration="963000" />
+      <workItem from="1744547063619" duration="641000" />
     </task>
     <servers />
   </component>

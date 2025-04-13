@@ -158,9 +158,45 @@ public class UsersController(AppDbContext context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool UserExists(int id)
+    [Route("Users/{id}/Tounaments")]
+    public async Task<IActionResult> Tournaments(int? id)
     {
-        return context.Users.Any(e => e.Id == id);
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var user = await context.Users
+            .Include(u => u.CreatedTournaments)
+            .FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var tournametsList = user.CreatedTournaments.ToList();
+
+        return View(tournametsList);
+    }
+
+    [Route("/Users/{id}/Teams")]
+    public async Task<IActionResult> Teams(int? id)
+    {
+        if (id == null)
+            return NotFound();
+
+        var user = await context.Users
+            .Include(u => u.TeamMemberships)
+            .ThenInclude(tm => tm.Team)
+            .FirstOrDefaultAsync(u => u.Id == id);
+
+        if (user == null)
+            return NotFound();
+
+        var teams = user.TeamMemberships.Select(tm => tm.Team).ToList();
+
+        return View(teams);
     }
         
     [Route("/Login")]
@@ -235,12 +271,6 @@ public class UsersController(AppDbContext context) : Controller
             return View();
         }
 
-        if (model.Username == null || model.Email == null || model.Pass == null)
-        {
-            ModelState.AddModelError("", "Usp... Coś poszło nie tak spróbuj później");
-            return View();
-        }
-
         var user = new User
         {
             Username = model.Username,
@@ -271,4 +301,5 @@ public class UsersController(AppDbContext context) : Controller
 
         await HttpContext.SignInAsync("MyAuth", principal);
     }
+    
 }

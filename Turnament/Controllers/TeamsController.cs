@@ -153,5 +153,26 @@ namespace Turnament.Controllers
         {
             return context.Teams.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> TeamMembers(int? id) // FIXME: neznajduje widoku
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var team = await context.Teams
+                .Include(t => t.Members)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            var teamMembers = team.Members.ToList();
+
+            return View(teamMembers);
+        }
     }
 }

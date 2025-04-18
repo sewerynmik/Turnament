@@ -9,58 +9,65 @@
 
 <div>
     <h4>Tournament</h4>
-    <hr />
-    
+    <hr/>
+
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            Nazwa
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        @if (Model.Description != null)
+        {
+            <dt class="col-sm-2">
+                Opis
+            </dt>
+
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Data rozpoczęcia
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
+        <dt class="col-sm-2">
+            Data zakończenia
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EndDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sport)
+        <dt class="col-sm-2">
+            Dyscyplina
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Sport.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BracketType)
+        <dt class="col-sm-2">
+            Rodziaj eliminacji
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BracketType.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Creator)
+        <dt class="col-sm-2">
+            Organizator
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Creator.Username)
-            <a class="btn btn-primary" asp-controller="Users" asp-action="Details" asp-route-id="@Model.CreatorId">Profil</a>
+        <dd class="col-sm-10">
+            <a class="text-dark nav-link" asp-controller="Users" asp-action="Details"
+               asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Creator.Username)</a>
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WinnerTeam)
+        @if (Model.WinnerTeamId != null)
+        {
+        <dt class="col-sm-2">
+            Zwycięsca
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WinnerTeam.Id)
-        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WinnerTeam.Name)
+        </dd> 
+        }
     </dl>
 </div>
 <div>

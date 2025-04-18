@@ -13,17 +13,19 @@ using Turnament.ViewModel.User;
 
 namespace Turnament.Controllers;
 
+[Route("Users")]
 public class UsersController(AppDbContext context) : Controller
 {
     
     // GET: Users
+    [HttpGet("")]
     public async Task<IActionResult> Index()
     {
         return View(await context.Users.ToListAsync());
     }
 
     // GET: Users/Details/5
-    [Route("/Users/{id}")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -41,29 +43,8 @@ public class UsersController(AppDbContext context) : Controller
         return View(user);
     }
 
-    /*// GET: Users/Create
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    // POST: Users/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Username,Email,PassHash,CreatedAt")] User user)
-    {
-        if (ModelState.IsValid)
-        {
-            context.Add(user);
-            await context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(user);
-    }*/
-
     // GET: Users/Edit/5
+    [HttpGet("Edit/{id:int}")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -91,7 +72,7 @@ public class UsersController(AppDbContext context) : Controller
     // POST: Users/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
+    [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -126,6 +107,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // GET: Users/Delete/5
+    [HttpGet("Delete/{id:int}")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -144,7 +126,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // POST: Users/Delete/5
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("Delete/{id:int}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
@@ -158,7 +140,7 @@ public class UsersController(AppDbContext context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [Route("Users/{id}/Tounaments")]
+    [Route("{id}/Tounaments")]
     public async Task<IActionResult> Tournaments(int? id)
     {
         if (id == null)
@@ -180,7 +162,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(tournametsList);
     }
 
-    [Route("/Users/{id}/Teams")]
+    [Route("{id}/Teams")]
     public async Task<IActionResult> Teams(int? id)
     {
         if (id == null)
@@ -194,7 +176,19 @@ public class UsersController(AppDbContext context) : Controller
         if (user == null)
             return NotFound();
 
-        var teams = user.TeamMemberships.Select(tm => tm.Team).ToList();
+        var teamsMembers = user.TeamMemberships
+            .Where(tm => tm.Id == user.Id)
+            .Select(tm => tm.Team)
+            .ToList();
+
+        var ownedTeams = context.Teams
+            .Where(t => t.CreatorId == user.Id)
+            .ToList();
+
+        var teams = teamsMembers
+            .Union(ownedTeams)
+            .Distinct()
+            .ToList();
 
         return View(teams);
     }

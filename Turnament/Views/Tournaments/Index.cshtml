@@ -1,3 +1,4 @@
+@using System.Security.Claims
 @model IEnumerable<Turnament.Models.Tournament>
 
 @{
@@ -7,7 +8,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -50,9 +51,15 @@
                 @Html.DisplayFor(modelItem => item.BracketType.Name)
             </td>
             <td style="text-align: end">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> 
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                @if (User.Identity is { IsAuthenticated: true } && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.Id.ToString())
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a> 
+                }
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                @if (User.Identity is { IsAuthenticated: true } && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.Id.ToString())
+                {  
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                }
             </td>
         </tr>
 }

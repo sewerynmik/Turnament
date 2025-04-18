@@ -9,8 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +102,7 @@
       <workItem from="1744495721254" duration="963000" />
       <workItem from="1744547063619" duration="2515000" />
       <workItem from="1744658898807" duration="2806000" />
-      <workItem from="1744971868916" duration="2246000" />
+      <workItem from="1744971868916" duration="2547000" />
     </task>
     <servers />
   </component>

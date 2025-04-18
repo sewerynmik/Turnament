@@ -1,36 +1,41 @@
+@using System.Security.Claims
 @model Turnament.Models.Team
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Drużyna @Model.Name</h1>
 
 <div>
-    <h4>Team</h4>
-    <hr />
+    <hr>
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            Nazwa
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
+        <dt class="col-sm-2">
+            Data założenia
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Creator)
+        <dt class="col-sm-2">
+            Założyciel
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Creator.Id)
+        <dd class="col-sm-10">
+            <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.Creator.Id">
+                @Html.DisplayFor(model => model.Creator.Username)
+            </a>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.Creator.Id.ToString())
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
+    }
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

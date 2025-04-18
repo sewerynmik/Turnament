@@ -1,13 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Turnament.Data;
 using Turnament.Models;
+using Turnament.ViewModel.Team;
 
 namespace Turnament.Controllers
 {
@@ -73,12 +69,19 @@ namespace Turnament.Controllers
             }
 
             var team = await context.Teams.FindAsync(id);
+            
             if (team == null)
             {
                 return NotFound();
             }
-            ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", team.CreatorId);
-            return View(team);
+
+            var model = new EditViewModel
+            {
+                Id = team.Id,
+                Name = team.Name
+            };
+            
+            return View(model);
         }
 
         // POST: Teams/Edit/5
@@ -86,35 +89,25 @@ namespace Turnament.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CreatorId,CreatedAt")] Team team)
+        public async Task<IActionResult> Edit(int id, EditViewModel model)
         {
-            if (id != team.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var team = await context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (team == null)
             {
-                try
-                {
-                    context.Update(team);
-                    await context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TeamExists(team.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", team.CreatorId);
-            return View(team);
+
+            team.Name = model.Name;
+            
+            await context.SaveChangesAsync();
+            
+            return RedirectToAction("Index");
         }
 
         // GET: Teams/Delete/5

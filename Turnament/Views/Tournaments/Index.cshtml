@@ -8,25 +8,25 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Zorganizuj nowy turniej</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Nazwa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                Data rozpoczęcia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                Data zakończenia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sport)
+                Dyscyplina
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BracketType)
+                Rodzaj eliminacji
             </th>
             <th>
             </th>
@@ -51,15 +51,7 @@
                 @Html.DisplayFor(modelItem => item.BracketType.Name)
             </td>
             <td style="text-align: end">
-                @if (User.Identity is { IsAuthenticated: true } && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.Id.ToString())
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a> 
-                }
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                @if (User.Identity is { IsAuthenticated: true } && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.Id.ToString())
-                {  
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                }
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Zobacz</a>
             </td>
         </tr>
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Turnament.Controllers
         }
 
         // GET: Teams/Details/5
+        [Route("Teams/{id}/Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -154,7 +156,8 @@ namespace Turnament.Controllers
             return context.Teams.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> TeamMembers(int? id) // FIXME: neznajduje widoku
+        [Route("/Teams/{id}/Members")]
+        public async Task<IActionResult> TeamMembers(int? id) 
         {
             if (id == null)
             {
@@ -163,6 +166,8 @@ namespace Turnament.Controllers
 
             var team = await context.Teams
                 .Include(t => t.Members)
+                .ThenInclude(teamMember => teamMember.User)
+                .Include(t => t.Creator)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (team == null)
@@ -170,8 +175,10 @@ namespace Turnament.Controllers
                 return NotFound();
             }
 
-            var teamMembers = team.Members.ToList();
+            var teamMembers = team.Members.Select(m => m.User).ToList() ?? throw new ArgumentNullException(nameof(id));
 
+            teamMembers.Add(team.Creator);
+            
             return View(teamMembers);
         }
     }

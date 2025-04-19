@@ -9,12 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Turnament/ViewModel/Team/CreateViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turnament/ViewModel/Team/EditViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Turnament/ViewModel/Tournament/EditViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/Edit.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +103,7 @@
       <workItem from="1744547063619" duration="2515000" />
       <workItem from="1744658898807" duration="2806000" />
       <workItem from="1744971868916" duration="5033000" />
-      <workItem from="1745006175445" duration="2458000" />
+      <workItem from="1745006175445" duration="2775000" />
     </task>
     <servers />
   </component>

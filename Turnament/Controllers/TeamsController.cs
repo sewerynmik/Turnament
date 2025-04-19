@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -48,16 +49,26 @@ namespace Turnament.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CreatorId,CreatedAt")] Team team)
+        public async Task<IActionResult> Create(CreateViewModel model)
         {
-            if (ModelState.IsValid)
+            var creatorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (creatorId == null)
             {
-                context.Add(team);
-                await context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", team.CreatorId);
-            return View(team);
+
+            var team = new Team
+            {
+                Name = model.Name,
+                CreatorId = int.Parse(creatorId),
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            await context.Teams.AddAsync(team);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Teams/Edit/5
@@ -69,7 +80,7 @@ namespace Turnament.Controllers
             }
 
             var team = await context.Teams.FindAsync(id);
-            
+
             if (team == null)
             {
                 return NotFound();
@@ -80,7 +91,7 @@ namespace Turnament.Controllers
                 Id = team.Id,
                 Name = team.Name
             };
-            
+
             return View(model);
         }
 
@@ -104,9 +115,9 @@ namespace Turnament.Controllers
             }
 
             team.Name = model.Name;
-            
+
             await context.SaveChangesAsync();
-            
+
             return RedirectToAction("Index");
         }
 
@@ -150,7 +161,7 @@ namespace Turnament.Controllers
         }
 
         [Route("/Teams/{id}/Members")]
-        public async Task<IActionResult> TeamMembers(int? id) 
+        public async Task<IActionResult> TeamMembers(int? id)
         {
             if (id == null)
             {
@@ -171,7 +182,7 @@ namespace Turnament.Controllers
             var teamMembers = team.Members.Select(m => m.User).ToList() ?? throw new ArgumentNullException(nameof(id));
 
             teamMembers.Add(team.Creator);
-            
+
             return View(teamMembers);
         }
     }

@@ -40,7 +40,6 @@ namespace Turnament.Controllers
         // GET: Teams/Create
         public IActionResult Create()
         {
-            ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id");
             return View();
         }
 

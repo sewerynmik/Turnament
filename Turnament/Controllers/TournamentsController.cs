@@ -202,6 +202,11 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    public async Task<IActionResult> Teams(int id)
+    {
+        return View();
+    }
+
     private bool TournamentExists(int id)
     {
         return context.Tournaments.Any(e => e.Id == id);

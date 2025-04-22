@@ -8,7 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="" />
+    <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,6 +106,8 @@
       <workItem from="1745006175445" duration="2775000" />
       <workItem from="1745094143786" duration="2125000" />
       <workItem from="1745139876919" duration="3116000" />
+      <workItem from="1745233821309" duration="479000" />
+      <workItem from="1745319104921" duration="1334000" />
     </task>
     <servers />
   </component>

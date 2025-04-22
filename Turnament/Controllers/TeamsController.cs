@@ -184,5 +184,10 @@ namespace Turnament.Controllers
 
             return View(teamMembers);
         }
+
+        public async Task<IActionResult> TeamInvitation()
+        {
+            return View();
+        }
     }
 }

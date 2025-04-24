@@ -13,9 +13,11 @@ using Turnament.ViewModel.Tournament;
 
 namespace Turnament.Controllers;
 
+[Route("Tournament")]
 public class TournamentsController(AppDbContext context) : Controller
 {
     // GET: Tournaments
+    [HttpGet("")]
     public async Task<IActionResult> Index()
     {
         var appDbContext = context.Tournaments
@@ -26,6 +28,7 @@ public class TournamentsController(AppDbContext context) : Controller
     }
 
     // GET: Tournaments/Details/5
+    [Route("{id:int}/Details")]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -50,7 +53,7 @@ public class TournamentsController(AppDbContext context) : Controller
 
     // GET: Tournaments/Create
     [Authorize]
-    [HttpGet]
+    [HttpGet("Create")]
     public IActionResult Create()
     {
         ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Name");
@@ -62,9 +65,8 @@ public class TournamentsController(AppDbContext context) : Controller
     // POST: Tournaments/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
     [Authorize]
-    [ValidateAntiForgeryToken]
+    [HttpPost("Create")]
     public async Task<IActionResult> Create(CreateViewModel model)
     {
         ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Id", model.BracketTypeId);
@@ -107,6 +109,8 @@ public class TournamentsController(AppDbContext context) : Controller
     }
 
     // GET: Tournaments/Edit/5
+    [Authorize]
+    [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -129,8 +133,8 @@ public class TournamentsController(AppDbContext context) : Controller
     // POST: Tournaments/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [Authorize]
+    [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,SportId,BracketTypeId,CreatorId,StartDate,EndDate,WinnerTeamId")] Tournament tournament)
     {
         if (id != tournament.Id)
@@ -166,6 +170,8 @@ public class TournamentsController(AppDbContext context) : Controller
     }
 
     // GET: Tournaments/Delete/5
+    [Authorize]
+    [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -188,8 +194,8 @@ public class TournamentsController(AppDbContext context) : Controller
     }
 
     // POST: Tournaments/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
+    [Authorize]
+    [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var tournament = await context.Tournaments.FindAsync(id);
@@ -202,6 +208,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpGet("{id:int}/Matches")]
     public async Task<IActionResult> Teams(int id)
     {
         return View();

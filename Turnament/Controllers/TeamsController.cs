@@ -6,188 +6,182 @@ using Turnament.Data;
 using Turnament.Models;
 using Turnament.ViewModel.Team;
 
-namespace Turnament.Controllers
+namespace Turnament.Controllers;
+
+[Route("Teams")]
+public class TeamsController(AppDbContext context) : Controller
 {
-    public class TeamsController(AppDbContext context) : Controller
+    // GET: Teams
+    [HttpGet("")]
+    public async Task<IActionResult> Index()
     {
-        // GET: Teams
-        public async Task<IActionResult> Index()
+        var appDbContext = context.Teams.Include(t => t.Creator);
+        return View(await appDbContext.ToListAsync());
+    }
+
+    // GET: Teams/Details/5
+    [Route("{id:int}/Details")]
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null)
         {
-            var appDbContext = context.Teams.Include(t => t.Creator);
-            return View(await appDbContext.ToListAsync());
+            return NotFound();
         }
 
-        // GET: Teams/Details/5
-        [Route("Teams/{id}/Details")]
-        public async Task<IActionResult> Details(int? id)
+        var team = await context.Teams
+            .Include(t => t.Creator)
+            .FirstOrDefaultAsync(m => m.Id == id);
+            
+        if (team == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var team = await context.Teams
-                .Include(t => t.Creator)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            return View(team);
+            return NotFound();
         }
 
-        // GET: Teams/Create
-        public IActionResult Create()
+        return View(team);
+    }
+
+    // GET: Teams/Create
+    [HttpGet("Create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Teams/Create
+    [HttpPost("Create")]
+    public async Task<IActionResult> Create(CreateViewModel model)
+    {
+        var creatorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (creatorId == null)
         {
-            return View();
+            return NotFound();
         }
 
-        // POST: Teams/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateViewModel model)
+        var team = new Team
         {
-            var creatorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Name = model.Name,
+            CreatorId = int.Parse(creatorId),
+            CreatedAt = DateTime.UtcNow,
+        };
 
-            if (creatorId == null)
-            {
-                return NotFound();
-            }
+        await context.Teams.AddAsync(team);
+        await context.SaveChangesAsync();
 
-            var team = new Team
-            {
-                Name = model.Name,
-                CreatorId = int.Parse(creatorId),
-                CreatedAt = DateTime.UtcNow,
-            };
+        return RedirectToAction("Index");
+    }
 
-            await context.Teams.AddAsync(team);
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Index");
+    // GET: Teams/Edit/5
+    [HttpGet("{id:int}/Edit")]
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
 
-        // GET: Teams/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        var team = await context.Teams.FindAsync(id);
+
+        if (team == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var team = await context.Teams.FindAsync(id);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            var model = new EditViewModel
-            {
-                Id = team.Id,
-                Name = team.Name
-            };
-
-            return View(model);
+            return NotFound();
         }
 
-        // POST: Teams/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EditViewModel model)
+        var model = new EditViewModel
         {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
+            Id = team.Id,
+            Name = team.Name
+        };
 
-            var team = await context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+        return View(model);
+    }
 
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            team.Name = model.Name;
-
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Index");
+    // POST: Teams/Edit/5
+    [HttpPost("{id:int}/Edit")]
+    public async Task<IActionResult> Edit(int id, EditViewModel model)
+    {
+        if (id != model.Id)
+        {
+            return NotFound();
         }
 
-        // GET: Teams/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        var team = await context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+
+        if (team == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var team = await context.Teams
-                .Include(t => t.Creator)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            return View(team);
+            return NotFound();
         }
 
-        // POST: Teams/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var team = await context.Teams.FindAsync(id);
-            if (team != null)
-            {
-                context.Teams.Remove(team);
-            }
+        team.Name = model.Name;
 
-            await context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Index");
+    }
+
+    // GET: Teams/Delete/5
+    [HttpGet("{id:int}/Delete")]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
         }
 
-        private bool TeamExists(int id)
+        var team = await context.Teams
+            .Include(t => t.Creator)
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (team == null)
         {
-            return context.Teams.Any(e => e.Id == id);
+            return NotFound();
         }
 
-        [Route("/Teams/{id}/Members")]
-        public async Task<IActionResult> TeamMembers(int? id)
+        return View(team);
+    }
+
+    // POST: Teams/Delete/5
+    [HttpPost("{id:int}/Delete")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var team = await context.Teams.FindAsync(id);
+        if (team != null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var team = await context.Teams
-                .Include(t => t.Members)
-                .ThenInclude(teamMember => teamMember.User)
-                .Include(t => t.Creator)
-                .FirstOrDefaultAsync(t => t.Id == id);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            var teamMembers = team.Members.Select(m => m.User).ToList() ?? throw new ArgumentNullException(nameof(id));
-
-            teamMembers.Add(team.Creator);
-
-            return View(teamMembers);
+            context.Teams.Remove(team);
         }
 
-        public async Task<IActionResult> TeamInvitation()
+        await context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    [Route("{id}/Members")]
+    public async Task<IActionResult> TeamMembers(int? id)
+    {
+        if (id == null)
         {
-            return View();
+            return NotFound();
         }
+
+        var team = await context.Teams
+            .Include(t => t.Members)
+            .ThenInclude(teamMember => teamMember.User)
+            .Include(t => t.Creator)
+            .FirstOrDefaultAsync(t => t.Id == id);
+
+        if (team == null)
+        {
+            return NotFound();
+        }
+
+        var teamMembers = team.Members.Select(m => m.User).ToList() ?? throw new ArgumentNullException(nameof(id));
+
+        teamMembers.Add(team.Creator);
+
+        return View(teamMembers);
+    }
+
+    [HttpGet("{id:int}/Invitations")]
+    public async Task<IActionResult> TeamInvitation(int? id)
+    {
+        return View();
     }
 }

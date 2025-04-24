@@ -44,7 +44,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // GET: Users/Edit/5
-    [HttpGet("Edit/{id:int}")]
+    [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -72,7 +72,7 @@ public class UsersController(AppDbContext context) : Controller
     // POST: Users/Edit/5
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost("Edit/{id:int}")]
+    [HttpPost("{id:int}/Edit")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -107,7 +107,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // GET: Users/Delete/5
-    [HttpGet("Delete/{id:int}")]
+    [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -126,7 +126,7 @@ public class UsersController(AppDbContext context) : Controller
     }
 
     // POST: Users/Delete/5
-    [HttpPost("Delete/{id:int}")]
+    [HttpPost("{id:int}/Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
@@ -140,7 +140,7 @@ public class UsersController(AppDbContext context) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [Route("{id}/Tounaments")]
+    [HttpGet("{id:int}/Tournaments")]
     public async Task<IActionResult> Tournaments(int? id)
     {
         if (id == null)
@@ -162,7 +162,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(tournametsList);
     }
 
-    [Route("{id}/Teams")]
+    [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int? id)
     {
         if (id == null)

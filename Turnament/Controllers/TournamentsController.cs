@@ -16,7 +16,6 @@ namespace Turnament.Controllers;
 [Route("Tournament")]
 public class TournamentsController(AppDbContext context) : Controller
 {
-    // GET: Tournaments
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
@@ -27,15 +26,9 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(await appDbContext.ToListAsync());
     }
 
-    // GET: Tournaments/Details/5
     [Route("{id:int}/Details")]
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var tournament = await context.Tournaments
             .Include(t => t.BracketType)
             .Include(t => t.Creator)
@@ -51,7 +44,6 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(tournament);
     }
 
-    // GET: Tournaments/Create
     [Authorize]
     [HttpGet("Create")]
     public IActionResult Create()
@@ -61,10 +53,7 @@ public class TournamentsController(AppDbContext context) : Controller
             
         return View();
     }
-
-    // POST: Tournaments/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    
     [Authorize]
     [HttpPost("Create")]
     public async Task<IActionResult> Create(CreateViewModel model)
@@ -108,7 +97,6 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Index");
     }
 
-    // GET: Tournaments/Edit/5
     [Authorize]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
@@ -123,6 +111,7 @@ public class TournamentsController(AppDbContext context) : Controller
         {
             return NotFound();
         }
+        
         ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Id", tournament.BracketTypeId);
         ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", tournament.CreatorId);
         ViewData["SportId"] = new SelectList(context.Sports, "Id", "Id", tournament.SportId);
@@ -130,9 +119,6 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(tournament);
     }
 
-    // POST: Tournaments/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [Authorize]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,SportId,BracketTypeId,CreatorId,StartDate,EndDate,WinnerTeamId")] Tournament tournament)
@@ -169,22 +155,17 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(tournament);
     }
 
-    // GET: Tournaments/Delete/5
     [Authorize]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var tournament = await context.Tournaments
             .Include(t => t.BracketType)
             .Include(t => t.Creator)
             .Include(t => t.Sport)
             .Include(t => t.WinnerTeam)
             .FirstOrDefaultAsync(m => m.Id == id);
+        
         if (tournament == null)
         {
             return NotFound();
@@ -193,22 +174,22 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(tournament);
     }
 
-    // POST: Tournaments/Delete/5
     [Authorize]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var tournament = await context.Tournaments.FindAsync(id);
+        
         if (tournament != null)
         {
             context.Tournaments.Remove(tournament);
         }
 
         await context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
 
-    [HttpGet("{id:int}/Matches")]
+    [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int id)
     {
         return View();

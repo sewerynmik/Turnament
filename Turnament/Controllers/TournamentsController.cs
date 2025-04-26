@@ -22,7 +22,7 @@ public class TournamentsController(AppDbContext context) : Controller
         var appDbContext = context.Tournaments
             .Include(t => t.BracketType)
             .Include(t => t.Sport);
-            
+
         return View(await appDbContext.ToListAsync());
     }
 
@@ -35,7 +35,7 @@ public class TournamentsController(AppDbContext context) : Controller
             .Include(t => t.Sport)
             .Include(t => t.WinnerTeam)
             .FirstOrDefaultAsync(m => m.Id == id);
-            
+
         if (tournament == null)
         {
             return NotFound();
@@ -50,10 +50,10 @@ public class TournamentsController(AppDbContext context) : Controller
     {
         ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Name");
         ViewData["SportId"] = new SelectList(context.Sports, "Id", "Name");
-            
+
         return View();
     }
-    
+
     [Authorize]
     [HttpPost("Create")]
     public async Task<IActionResult> Create(CreateViewModel model)
@@ -101,27 +101,47 @@ public class TournamentsController(AppDbContext context) : Controller
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var tournament = await context.Tournaments.FindAsync(id);
+
         if (tournament == null)
         {
             return NotFound();
         }
-        
-        ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Id", tournament.BracketTypeId);
-        ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", tournament.CreatorId);
-        ViewData["SportId"] = new SelectList(context.Sports, "Id", "Id", tournament.SportId);
-        ViewData["WinnerTeamId"] = new SelectList(context.Teams, "Id", "Id", tournament.WinnerTeamId);
-        return View(tournament);
+
+        ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Name", "Name", tournament.BracketTypeId);
+        ViewData["SportId"] = new SelectList(context.Sports, "Name", "Name", tournament.SportId);
+
+        var winner = await context.Tournaments
+            .Include(t => t.TournamentTeams)
+            .ThenInclude(t => t.Team)
+            .Where(t => t.Id == id)
+            .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
+            .ToListAsync();
+
+        if (winner.Count != 0)
+        {
+            ViewData["WinnerTeamId"] = new SelectList(winner, "Id", "Id", tournament.WinnerTeamId);
+        }
+
+        var model = new EditViewModel
+        {
+            Id = tournament.Id,
+            Name = tournament.Name,
+            BracketTypeId = tournament.BracketTypeId,
+            Description = tournament.Description,
+            SportId = tournament.SportId,
+            StartDate = tournament.StartDate,
+            EndDate = tournament.EndDate,
+        };
+
+        return View(model);
     }
 
     [Authorize]
     [HttpPost("{id:int}/Edit")]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,SportId,BracketTypeId,CreatorId,StartDate,EndDate,WinnerTeamId")] Tournament tournament)
+    public async Task<IActionResult> Edit(int id,
+        [Bind("Id,Name,Description,SportId,BracketTypeId,CreatorId,StartDate,EndDate,WinnerTeamId")]
+        Tournament tournament)
     {
         if (id != tournament.Id)
         {
@@ -146,8 +166,10 @@ public class TournamentsController(AppDbContext context) : Controller
                     throw;
                 }
             }
+
             return RedirectToAction(nameof(Index));
         }
+
         ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Id", tournament.BracketTypeId);
         ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", tournament.CreatorId);
         ViewData["SportId"] = new SelectList(context.Sports, "Id", "Id", tournament.SportId);
@@ -165,7 +187,7 @@ public class TournamentsController(AppDbContext context) : Controller
             .Include(t => t.Sport)
             .Include(t => t.WinnerTeam)
             .FirstOrDefaultAsync(m => m.Id == id);
-        
+
         if (tournament == null)
         {
             return NotFound();
@@ -179,7 +201,7 @@ public class TournamentsController(AppDbContext context) : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var tournament = await context.Tournaments.FindAsync(id);
-        
+
         if (tournament != null)
         {
             context.Tournaments.Remove(tournament);

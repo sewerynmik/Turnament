@@ -18,12 +18,12 @@ public class CreateViewModel
     [Display(Name = "Rodzaj drabinki")]
     public int BracketTypeId { get; set; }
     
-    [Display(Name = "Dara rozpoczęcia")]
+    [Display(Name = "Data rozpoczęcia")]
     [Required(ErrorMessage = "Wprowadz poprawną datę.")]
     [DataType(DataType.DateTime)]
     public DateTime StartDate { get; set; }
     
-    [Display(Name = "Dara zakonczenia.")]
+    [Display(Name = "Data zakonczenia.")]
     [Required(ErrorMessage = "Wprowadz poprawną datę.")]
     [DataType(DataType.DateTime)]
     public DateTime EndDate { get; set; }

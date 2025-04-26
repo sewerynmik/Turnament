@@ -108,8 +108,8 @@ public class TournamentsController(AppDbContext context) : Controller
             return NotFound();
         }
 
-        ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Name", "Name", tournament.BracketTypeId);
-        ViewData["SportId"] = new SelectList(context.Sports, "Name", "Name", tournament.SportId);
+        ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Name", tournament.BracketTypeId);
+        ViewData["SportId"] = new SelectList(context.Sports, "Id", "Name", tournament.SportId);
 
         var winner = await context.Tournaments
             .Include(t => t.TournamentTeams)
@@ -118,10 +118,21 @@ public class TournamentsController(AppDbContext context) : Controller
             .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
             .ToListAsync();
 
-        if (winner.Count != 0)
+        if (winner.Any())
         {
-            ViewData["WinnerTeamId"] = new SelectList(winner, "Id", "Id", tournament.WinnerTeamId);
+            var items = winner.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name,
+                Selected = t.Id == tournament.WinnerTeamId
+            }).ToList();
+    
+            // Dodaje opcję "Brak zwycięzcy"
+            items.Insert(0, new SelectListItem { Value = "", Text = "-- Brak zwycięzcy --" });
+    
+            ViewData["WinnerTeamId"] = items;
         }
+
 
         var model = new EditViewModel
         {
@@ -132,6 +143,7 @@ public class TournamentsController(AppDbContext context) : Controller
             SportId = tournament.SportId,
             StartDate = tournament.StartDate,
             EndDate = tournament.EndDate,
+            WinnerTeamId = tournament.WinnerTeamId,
         };
 
         return View(model);
@@ -139,42 +151,53 @@ public class TournamentsController(AppDbContext context) : Controller
 
     [Authorize]
     [HttpPost("{id:int}/Edit")]
-    public async Task<IActionResult> Edit(int id,
-        [Bind("Id,Name,Description,SportId,BracketTypeId,CreatorId,StartDate,EndDate,WinnerTeamId")]
-        Tournament tournament)
+    public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
-        if (id != tournament.Id)
+        if (!ModelState.IsValid)
+        {
+            ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Name", model.BracketTypeId);
+            ViewData["SportId"] = new SelectList(context.Sports, "Id", "Name", model.SportId);
+            
+            return View(model);
+        }
+
+        
+        if (id != model.Id)
         {
             return NotFound();
         }
+        
+        var tournament = await context.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
 
-        if (ModelState.IsValid)
+        if (tournament == null)
         {
-            try
+            return NotFound();
+        }
+        
+        if (model.WinnerTeamId.HasValue)
+        {
+            var teamExists = await context.TournamentTeams
+                .AnyAsync(tt => tt.TournamentId == id && tt.TeamId == model.WinnerTeamId);
+            
+            if (!teamExists)
             {
-                context.Update(tournament);
-                await context.SaveChangesAsync();
+                ModelState.AddModelError(nameof(model.WinnerTeamId), "Wybrana drużyna nie jest uczestnikiem turnieju");
+                return View(model);
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TournamentExists(tournament.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToAction(nameof(Index));
         }
 
-        ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Id", tournament.BracketTypeId);
-        ViewData["CreatorId"] = new SelectList(context.Users, "Id", "Id", tournament.CreatorId);
-        ViewData["SportId"] = new SelectList(context.Sports, "Id", "Id", tournament.SportId);
-        ViewData["WinnerTeamId"] = new SelectList(context.Teams, "Id", "Id", tournament.WinnerTeamId);
-        return View(tournament);
+        
+        tournament.Name = model.Name;
+        tournament.Description = model.Description;
+        tournament.SportId = model.SportId;
+        tournament.BracketTypeId = model.BracketTypeId;
+        tournament.StartDate = model.StartDate;
+        tournament.EndDate = model.EndDate;
+        tournament.WinnerTeamId = model.WinnerTeamId;
+
+        await context.SaveChangesAsync();
+        
+        return RedirectToAction("Index");
     }
 
     [Authorize]

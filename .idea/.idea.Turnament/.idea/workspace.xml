@@ -9,12 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/Tournament/CreateViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/Tournament/CreateViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/Tournament/EditViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/Tournament/EditViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Home/NotFound.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Home/NotFound.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Edit.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +111,7 @@
       <workItem from="1745139876919" duration="3116000" />
       <workItem from="1745233821309" duration="479000" />
       <workItem from="1745319104921" duration="1334000" />
+      <workItem from="1745708021606" duration="386000" />
     </task>
     <servers />
   </component>
@@ -120,4 +120,22 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
 </project>

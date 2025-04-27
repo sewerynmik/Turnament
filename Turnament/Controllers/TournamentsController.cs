@@ -237,7 +237,14 @@ public class TournamentsController(AppDbContext context) : Controller
     [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int id)
     {
-        return View();
+        var teams = await context.Tournaments
+            .Include(t => t.TournamentTeams)
+            .ThenInclude(tt => tt.Team)
+            .Where(t => t.Id == id)
+            .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
+            .ToListAsync();
+        
+        return View(teams);
     }
 
     private bool TournamentExists(int id)

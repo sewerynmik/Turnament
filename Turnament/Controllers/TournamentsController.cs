@@ -243,12 +243,37 @@ public class TournamentsController(AppDbContext context) : Controller
             .Where(t => t.Id == id)
             .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
             .ToListAsync();
+
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            var user = await context.Users
+                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            var usersTeams = await context.TournamentTeams
+                .Where(tt => tt.Team.CreatorId == user.Id)
+                .Select(tt => tt.Team)
+                .ToListAsync();
+            
+            ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
+        }
+        
         
         return View(teams);
-    }
-
-    private bool TournamentExists(int id)
-    {
-        return context.Tournaments.Any(e => e.Id == id);
     }
 }

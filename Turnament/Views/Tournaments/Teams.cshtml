@@ -6,6 +6,16 @@
 
 <div style="display: flex; flex-direction: row;justify-content: space-between; align-items: center">
     <h1>Drużyny</h1>
+    
+    @if (ViewBag.UserTeams != null)
+    {
+        <form>
+            <label>Wybierz drużynę:</label>
+            <select asp-items="ViewBag.UserTeams" class="form-control"></select>
+            
+            <button type="submit" class="btn btn-primary">Zobacz</button>
+        </form>
+    }
 </div>
 
 <table class="table">

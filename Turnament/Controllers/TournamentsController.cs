@@ -244,7 +244,7 @@ public class TournamentsController(AppDbContext context) : Controller
             .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
             .ToListAsync();
 
-        if (User.Identity != null && User.Identity.IsAuthenticated)
+        if (User.Identity is { IsAuthenticated: true })
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -261,10 +261,11 @@ public class TournamentsController(AppDbContext context) : Controller
                 return NotFound();
             }
             
-            var usersTeams = await context.TournamentTeams
-                .Where(tt => tt.Team.CreatorId == user.Id)
-                .Select(tt => tt.Team)
+            var usersTeams = await context.Teams
+                .Where(t => t.CreatorId == user.Id && !context.TournamentTeams
+                    .Any(tt => tt.TeamId == t.Id && tt.TournamentId == id))
                 .ToListAsync();
+
             
             ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
             {

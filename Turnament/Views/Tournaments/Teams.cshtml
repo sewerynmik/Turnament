@@ -9,13 +9,18 @@
     
     @if (ViewBag.UserTeams != null)
     {
-        <form>
-            <label>Wybierz drużynę:</label>
-            <select asp-items="ViewBag.UserTeams" class="form-control"></select>
+        <form asp-controller="Tournaments" 
+              asp-action="Join" 
+              asp-route-tournamentId="@ViewBag.TournamentId" 
+              method="post">
             
-            <button type="submit" class="btn btn-primary">Zobacz</button>
+            <label>Wybierz drużynę:</label>
+            <select name="teamId" asp-items="ViewBag.UserTeams" class="form-control"></select>
+
+            <button type="submit" class="btn btn-primary">Dodaj</button>
         </form>
     }
+
 </div>
 
 <table class="table">

@@ -272,9 +272,55 @@ public class TournamentsController(AppDbContext context) : Controller
                 Value = t.Id.ToString(),
                 Text = t.Name
             }).ToList();
+            
+            ViewBag.TournamentId = id;
         }
         
         
         return View(teams);
     }
+    
+    [HttpPost("{tournamentId:int}/Join")] // lub po prostu [HttpPost("Join")] jeśli wolisz przekazać tournamentId też w formularzu
+    public async Task<IActionResult> Join([FromRoute] int tournamentId, [FromForm] int teamId) // Dodaj [FromRoute] i [FromForm]
+    {
+        // Sprawdzenie czy tournamentId i teamId zostały poprawnie przekazane może być tu pomocne
+        // np. if (tournamentId <= 0 || teamId <= 0) return BadRequest("Invalid IDs");
+
+        var tournament = await context.Tournaments.FindAsync(tournamentId);
+
+        if (tournament ==  null)
+        {
+            return NotFound($"Tournament with ID {tournamentId} not found.");
+        }
+        
+        var team = await context.Teams.FindAsync(teamId);
+
+        if (team == null)
+        {
+            return NotFound($"Team with ID {teamId} not found.");
+        }
+
+        // Sprawdź, czy drużyna już nie jest w turnieju
+        var existingEntry = await context.TournamentTeams
+            .AnyAsync(tt => tt.TournamentId == tournamentId && tt.TeamId == teamId);
+        if (existingEntry)
+        {
+            // Możesz przekazać informację zwrotną do widoku zamiast tylko przekierowywać
+            TempData["ErrorMessage"] = $"Drużyna '{team.Name}' już jest zapisana do tego turnieju.";
+            return RedirectToAction("Teams", new { id = tournamentId }); 
+        }
+
+        var teamTurnament = new TournamentTeam
+        {
+            TeamId = team.Id,
+            TournamentId = tournament.Id
+        };
+
+        await context.TournamentTeams.AddAsync(teamTurnament);
+        await context.SaveChangesAsync();
+        
+        // Zamiast przekierowania do Index, lepiej przekierować z powrotem do listy drużyn turnieju
+        return RedirectToAction("Teams", new { id = tournamentId }); 
+    }
+
 }

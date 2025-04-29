@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Turnament.Data;
 using Turnament.Models;
@@ -16,48 +11,29 @@ namespace Turnament.Controllers;
 [Route("Users")]
 public class UsersController(AppDbContext context) : Controller
 {
-    
-    // GET: Users
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
         return View(await context.Users.ToListAsync());
     }
 
-    // GET: Users/Details/5
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var user = await context.Users
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (user == null)
-        {
-            return NotFound();
-        }
+
+        if (user == null) return NotFound();
 
         return View(user);
     }
 
-    // GET: Users/Edit/5
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var user = await context.Users.FindAsync(id);
-        
-        if (user == null)
-        {
-            return NotFound();
-        }
+
+        if (user == null) return NotFound();
 
         var model = new EditViewModel
         {
@@ -65,15 +41,11 @@ public class UsersController(AppDbContext context) : Controller
             Email = user.Email,
             Username = user.Username
         };
-        
+
         return View(model);
     }
 
-    // POST: Users/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost("{id:int}/Edit")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
         if (id != model.Id)
@@ -81,13 +53,8 @@ public class UsersController(AppDbContext context) : Controller
             return NotFound();
         }
 
-        if (await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Id != id) != null)
-        {
-            ModelState.AddModelError("", "Użytkownik z takim adresem email jest zarejestrowany.");
-            return View(model);
-        }
-        
-        if (await context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Id != id) != null)
+        if (await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Id != id) != null
+            || await context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Id != id) != null)
         {
             ModelState.AddModelError("", "Użytkownik z takim adresem email jest zarejestrowany.");
             return View(model);
@@ -103,59 +70,41 @@ public class UsersController(AppDbContext context) : Controller
 
         await context.SaveChangesAsync();
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Details", new { id = user.Id });
+        ;
     }
 
-    // GET: Users/Delete/5
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var user = await context.Users
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (user == null)
-        {
-            return NotFound();
-        }
+
+        if (user == null) return NotFound();
 
         return View(user);
     }
 
-    // POST: Users/Delete/5
     [HttpPost("{id:int}/Delete")]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var user = await context.Users.FindAsync(id);
-        if (user != null)
-        {
-            context.Users.Remove(user);
-        }
+
+        if (user != null) context.Users.Remove(user);
 
         await context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+
+        return RedirectToAction("Index");
     }
 
     [HttpGet("{id:int}/Tournaments")]
     public async Task<IActionResult> Tournaments(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var user = await context.Users
             .Include(u => u.CreatedTournaments)
             .FirstOrDefaultAsync(u => u.Id == id);
 
-        if (user == null)
-        {
-            return NotFound();
-        }
+        if (user == null) return NotFound();
 
         var tournametsList = user.CreatedTournaments.ToList();
 
@@ -165,16 +114,12 @@ public class UsersController(AppDbContext context) : Controller
     [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int? id)
     {
-        if (id == null)
-            return NotFound();
-
         var user = await context.Users
             .Include(u => u.TeamMemberships)
             .ThenInclude(tm => tm.Team)
             .FirstOrDefaultAsync(u => u.Id == id);
 
-        if (user == null)
-            return NotFound();
+        if (user == null) return NotFound();
 
         var teamsMembers = user.TeamMemberships
             .Where(tm => tm.Id == user.Id)
@@ -192,7 +137,7 @@ public class UsersController(AppDbContext context) : Controller
 
         return View(teams);
     }
-        
+
     [Route("/Login")]
     public IActionResult Login()
     {
@@ -207,7 +152,7 @@ public class UsersController(AppDbContext context) : Controller
         {
             return View(model);
         }
-        
+
         var user = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
 
         if (user == null)
@@ -225,7 +170,7 @@ public class UsersController(AppDbContext context) : Controller
         }
 
         await LoginUser(user.Id, user.Username, user.Email);
-        
+
         return RedirectToAction("Index", "Home");
     }
 
@@ -252,7 +197,7 @@ public class UsersController(AppDbContext context) : Controller
         {
             return View(model);
         }
-        
+
         if (await context.Users.FirstOrDefaultAsync(u => u.Username == model.Username) != null)
         {
             ModelState.AddModelError("", "Nazwa użytkownika jest już zajęta.");
@@ -295,5 +240,4 @@ public class UsersController(AppDbContext context) : Controller
 
         await HttpContext.SignInAsync("MyAuth", principal);
     }
-    
 }

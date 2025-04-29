@@ -11,52 +11,39 @@ namespace Turnament.Controllers;
 [Route("Teams")]
 public class TeamsController(AppDbContext context) : Controller
 {
-    // GET: Teams
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
-        var appDbContext = context.Teams.Include(t => t.Creator);
+        var appDbContext = context.Teams
+            .Include(t => t.Creator);
+
         return View(await appDbContext.ToListAsync());
     }
 
-    // GET: Teams/Details/5
     [Route("{id:int}/Details")]
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var team = await context.Teams
             .Include(t => t.Creator)
             .FirstOrDefaultAsync(m => m.Id == id);
-            
-        if (team == null)
-        {
-            return NotFound();
-        }
+
+        if (team == null) return NotFound();
 
         return View(team);
     }
 
-    // GET: Teams/Create
     [HttpGet("Create")]
     public IActionResult Create()
     {
         return View();
     }
 
-    // POST: Teams/Create
     [HttpPost("Create")]
     public async Task<IActionResult> Create(CreateViewModel model)
     {
         var creatorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        if (creatorId == null)
-        {
-            return NotFound();
-        }
+        if (creatorId == null) return NotFound();
 
         var team = new Team
         {
@@ -68,24 +55,15 @@ public class TeamsController(AppDbContext context) : Controller
         await context.Teams.AddAsync(team);
         await context.SaveChangesAsync();
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Details", new { id = team.Id });
     }
 
-    // GET: Teams/Edit/5
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var team = await context.Teams.FindAsync(id);
 
-        if (team == null)
-        {
-            return NotFound();
-        }
+        if (team == null) return NotFound();
 
         var model = new EditViewModel
         {
@@ -96,45 +74,30 @@ public class TeamsController(AppDbContext context) : Controller
         return View(model);
     }
 
-    // POST: Teams/Edit/5
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
-        if (id != model.Id)
-        {
-            return NotFound();
-        }
+        if (id != model.Id) return NotFound();
 
         var team = await context.Teams.FirstOrDefaultAsync(t => t.Id == id);
 
-        if (team == null)
-        {
-            return NotFound();
-        }
+        if (team == null) return NotFound();
 
         team.Name = model.Name;
 
         await context.SaveChangesAsync();
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Details", new { id = team.Id });
     }
 
-    // GET: Teams/Delete/5
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var team = await context.Teams
             .Include(t => t.Creator)
             .FirstOrDefaultAsync(m => m.Id == id);
-        if (team == null)
-        {
-            return NotFound();
-        }
+        
+        if (team == null) return NotFound();
 
         return View(team);
     }
@@ -144,33 +107,23 @@ public class TeamsController(AppDbContext context) : Controller
     public async Task<IActionResult> Delete(int id)
     {
         var team = await context.Teams.FindAsync(id);
-        if (team != null)
-        {
-            context.Teams.Remove(team);
-        }
+        
+        if (team != null) context.Teams.Remove(team);
 
         await context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
 
     [Route("{id}/Members")]
     public async Task<IActionResult> TeamMembers(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
         var team = await context.Teams
             .Include(t => t.Members)
             .ThenInclude(teamMember => teamMember.User)
             .Include(t => t.Creator)
             .FirstOrDefaultAsync(t => t.Id == id);
 
-        if (team == null)
-        {
-            return NotFound();
-        }
+        if (team == null) return NotFound();
 
         var teamMembers = team.Members.Select(m => m.User).ToList() ?? throw new ArgumentNullException(nameof(id));
 

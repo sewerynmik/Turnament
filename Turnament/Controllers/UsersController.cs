@@ -71,7 +71,6 @@ public class UsersController(AppDbContext context) : Controller
         await context.SaveChangesAsync();
 
         return RedirectToAction("Details", new { id = user.Id });
-        ;
     }
 
     [HttpGet("{id:int}/Delete")]

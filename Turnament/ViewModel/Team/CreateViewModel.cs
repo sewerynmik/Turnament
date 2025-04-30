@@ -6,5 +6,5 @@ public class CreateViewModel
 {
     [Required(ErrorMessage = "Nazwa jest wymagana")]
     [Display(Name = "Nazwa")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }

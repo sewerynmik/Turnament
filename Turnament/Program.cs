@@ -45,5 +45,19 @@ app.MapControllerRoute(
     DbInitializer.Initialize(context);
 }*/
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Wystąpił błąd podczas seedowania bazy danych.");
+    }
+}
 
 app.Run();

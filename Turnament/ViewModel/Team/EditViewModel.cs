@@ -8,5 +8,5 @@ public class EditViewModel
     
     [Display(Name = "Nazwa")]
     [Required(ErrorMessage = "Nazwa jest wymagana.")]
-    public required string Name { get; set; }
+    public required string? Name { get; set; }
 }

@@ -24,6 +24,7 @@ public class TeamsController(AppDbContext context) : Controller
     {
         var team = await context.Teams
             .Include(t => t.Creator)
+            .Include(t => t.Members)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (team == null) return NotFound();
@@ -100,8 +101,7 @@ public class TeamsController(AppDbContext context) : Controller
 
         return View(team);
     }
-
-    // POST: Teams/Delete/5
+    
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -134,6 +134,13 @@ public class TeamsController(AppDbContext context) : Controller
     [HttpGet("{id:int}/Invitations")]
     public async Task<IActionResult> TeamInvitation(int? id)
     {
+        var team = await context.Teams
+            .Include(t => t.Invitations)
+            .FirstOrDefaultAsync(t => t.Id == id);
+        
+        if (team == null) return NotFound();
+        
+        
         return View();
     }
 }

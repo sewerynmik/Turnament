@@ -1,4 +1,5 @@
-﻿@model List<Team>
+﻿@using System.Security.Claims
+@model List<Team>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,16 +7,19 @@
 
 <div style="display: flex; flex-direction: row;justify-content: space-between; align-items: center">
     <h1>Drużyny</h1>
-    
+
     @if (ViewBag.UserTeams != null)
     {
-        <form asp-controller="Tournaments" 
-              asp-action="Join" 
-              asp-route-tournamentId="@ViewBag.TournamentId" 
-              method="post">
-            
-            <label>Wybierz drużynę:</label>
-            <select name="teamId" asp-items="ViewBag.UserTeams" class="form-control"></select>
+        <form asp-action="Join"
+              asp-route-tournamentId="@ViewBag.TournamentId"
+              method="post"
+              style="display: flex; flex-direction: row; justify-content: space-between; align-items: end; width: 200px"
+        >
+            <div>
+                <label>Wybierz drużynę:</label>
+                <select name="teamId" asp-items="ViewBag.UserTeams" class="form-control"></select>
+            </div>
+
 
             <button type="submit" class="btn btn-primary">Dodaj</button>
         </form>
@@ -53,8 +57,23 @@
                     @Html.DisplayFor(modelItem => item.Creator.Username)
                 </a>
             </td>
-            <td style="text-align: end">
+            <td style="text-align: end; width: 10em">
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Zobacz</a>
+                @if (User.Identity is { IsAuthenticated: true }
+                     && (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.CreatorId.ToString() 
+                         || User.FindFirst(ClaimTypes.NameIdentifier)?.Value == ViewBag.TournamentId))
+                {
+                    <form
+                        asp-action="Leave"
+                        asp-route-tournamentId="@ViewBag.TournamentId"
+                        method="post"
+                        style="display: inline-block">
+
+                        <input type="hidden" name="teamId" value="@item.Id" />
+
+                        <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                    </form>
+                }
             </td>
         </tr>
     }

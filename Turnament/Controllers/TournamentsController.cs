@@ -122,10 +122,10 @@ public class TournamentsController(AppDbContext context) : Controller
                 Text = t.Name,
                 Selected = t.Id == tournament.WinnerTeamId
             }).ToList();
-    
+
             // Dodaje opcję "Brak zwycięzcy"
             items.Insert(0, new SelectListItem { Value = "", Text = "-- Brak zwycięzcy --" });
-    
+
             ViewData["WinnerTeamId"] = items;
         }
 
@@ -153,28 +153,28 @@ public class TournamentsController(AppDbContext context) : Controller
         {
             ViewData["BracketTypeId"] = new SelectList(context.BracketTypes, "Id", "Name", model.BracketTypeId);
             ViewData["SportId"] = new SelectList(context.Sports, "Id", "Name", model.SportId);
-            
+
             return View(model);
         }
 
-        
+
         if (id != model.Id)
         {
             return NotFound();
         }
-        
+
         var tournament = await context.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
 
         if (tournament == null)
         {
             return NotFound();
         }
-        
+
         if (model.WinnerTeamId.HasValue)
         {
             var teamExists = await context.TournamentTeams
                 .AnyAsync(tt => tt.TournamentId == id && tt.TeamId == model.WinnerTeamId);
-            
+
             if (!teamExists)
             {
                 ModelState.AddModelError(nameof(model.WinnerTeamId), "Wybrana drużyna nie jest uczestnikiem turnieju");
@@ -182,7 +182,7 @@ public class TournamentsController(AppDbContext context) : Controller
             }
         }
 
-        
+
         tournament.Name = model.Name;
         tournament.Description = model.Description;
         tournament.SportId = model.SportId;
@@ -192,7 +192,7 @@ public class TournamentsController(AppDbContext context) : Controller
         tournament.WinnerTeamId = model.WinnerTeamId;
 
         await context.SaveChangesAsync();
-        
+
         return RedirectToAction("Details", new { id = tournament.Id });
     }
 
@@ -230,6 +230,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Index");
     }
 
+    [Authorize]
     [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int id)
     {
@@ -240,52 +241,49 @@ public class TournamentsController(AppDbContext context) : Controller
             .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
             .ToListAsync();
 
-        if (User.Identity is { IsAuthenticated: true })
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId == null)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userId == null)
-            {
-                return NotFound();
-            }
-
-            var user = await context.Users
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-            
-            if (user == null)
-            {
-                return NotFound();
-            }
-            
-            var usersTeams = await context.Teams
-                .Where(t => t.CreatorId == user.Id && !context.TournamentTeams
-                    .Any(tt => tt.TeamId == t.Id && tt.TournamentId == id))
-                .ToListAsync();
-
-            
-            ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
-            {
-                Value = t.Id.ToString(),
-                Text = t.Name
-            }).ToList();
-            
-            ViewBag.TournamentId = id;
+            return NotFound();
         }
-        
-        
+
+        var user = await context.Users
+            .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var usersTeams = await context.Teams
+            .Where(t => t.CreatorId == user.Id && !context.TournamentTeams
+                .Any(tt => tt.TeamId == t.Id && tt.TournamentId == id))
+            .ToListAsync();
+
+
+        ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
+        {
+            Value = t.Id.ToString(),
+            Text = t.Name
+        }).ToList();
+
+        ViewBag.TournamentId = id;
+
         return View(teams);
     }
-    
+
     [HttpPost("{tournamentId:int}/Join")]
     public async Task<IActionResult> Join([FromRoute] int tournamentId, [FromForm] int teamId)
     {
         var tournament = await context.Tournaments.FindAsync(tournamentId);
 
-        if (tournament ==  null)
+        if (tournament == null)
         {
             return NotFound();
         }
-        
+
         var team = await context.Teams.FindAsync(teamId);
 
         if (team == null)
@@ -295,11 +293,11 @@ public class TournamentsController(AppDbContext context) : Controller
 
         var existingEntry = await context.TournamentTeams
             .AnyAsync(tt => tt.TournamentId == tournamentId && tt.TeamId == teamId);
-        
+
         if (existingEntry)
         {
             TempData["ErrorMessage"] = $"Drużyna '{team.Name}' już jest zapisana do tego turnieju.";
-            return RedirectToAction("Teams", new { id = tournamentId }); 
+            return RedirectToAction("Teams", new { id = tournamentId });
         }
 
         var teamTurnament = new TournamentTeam
@@ -310,8 +308,32 @@ public class TournamentsController(AppDbContext context) : Controller
 
         await context.TournamentTeams.AddAsync(teamTurnament);
         await context.SaveChangesAsync();
-        
-        return RedirectToAction("Teams", new { id = tournamentId }); 
+
+        return RedirectToAction("Teams", new { id = tournamentId });
     }
 
+    [HttpPost("{tournamentId}/Leave")]
+    public async Task<IActionResult> Leave([FromRoute] int tournamentId, [FromForm] int teamId)
+    {
+        var tournament = await context.Tournaments.FindAsync(tournamentId);
+        var team = await context.Teams.FindAsync(teamId);
+
+        if (tournament == null || team == null)
+        {
+            return NotFound();
+        }
+
+        var teamTournament = await context.TournamentTeams
+            .FirstOrDefaultAsync(tt => tt.TeamId == teamId && tt.TournamentId == tournamentId);
+
+        if (teamTournament == null)
+        {
+            return NotFound();
+        }
+
+        context.TournamentTeams.Remove(teamTournament);
+        await context.SaveChangesAsync();
+
+        return RedirectToAction("Teams", new { id = tournamentId });
+    }
 }

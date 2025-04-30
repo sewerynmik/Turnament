@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,13 +46,6 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///AIAssistantSnippet.." root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
@@ -64,7 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.Unnamed.executor": "Debug",
+    ".NET Launch Settings Profile.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
@@ -118,6 +112,7 @@
       <workItem from="1745319104921" duration="1334000" />
       <workItem from="1745708021606" duration="2218000" />
       <workItem from="1745846721586" duration="6572000" />
+      <workItem from="1746021205716" duration="3861000" />
     </task>
     <servers />
   </component>
@@ -141,19 +136,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs</url>
-          <line>308</line>
-          <properties documentPath="D:\apetor\Turnament\Turnament\Controllers\TournamentsController.cs" containingFunctionPresentation="Method 'Join'">
-            <startOffsets>
-              <option value="9073" />
-            </startOffsets>
-            <endOffsets>
-              <option value="9106" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -8,7 +8,7 @@
 <div style="display: flex; flex-direction: row;justify-content: space-between; align-items: center">
     <h1>Drużyny</h1>
 
-    @if (ViewBag.UserTeams != null)
+    @if (ViewBag.UserTeams != null && ((List<SelectListItem>)ViewBag.UserTeams).Count > 0)
     {
         <form asp-action="Join"
               asp-route-tournamentId="@ViewBag.TournamentId"
@@ -19,7 +19,6 @@
                 <label>Wybierz drużynę:</label>
                 <select name="teamId" asp-items="ViewBag.UserTeams" class="form-control"></select>
             </div>
-
 
             <button type="submit" class="btn btn-primary">Dodaj</button>
         </form>

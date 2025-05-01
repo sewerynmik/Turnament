@@ -10,16 +10,12 @@
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Data/DbInitializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Data/DbInitializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Models/Team.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Models/Team.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TournamentsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/Team/CreateViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/Team/CreateViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/ViewModel/Team/EditViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/ViewModel/Team/EditViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/TeamMembers.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/TeamMembers.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db-wal" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +48,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///AIAssistantSnippet.." root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -119,7 +118,8 @@
       <workItem from="1745319104921" duration="1334000" />
       <workItem from="1745708021606" duration="2218000" />
       <workItem from="1745846721586" duration="6572000" />
-      <workItem from="1746021205716" duration="12718000" />
+      <workItem from="1746021205716" duration="13169000" />
+      <workItem from="1746091153466" duration="972000" />
     </task>
     <servers />
   </component>

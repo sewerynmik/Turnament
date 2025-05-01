@@ -22,7 +22,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(await appDbContext.ToListAsync());
     }
 
-    [Route("{id:int}/Details")]
+    [HttpGet("{id:int}/Details")]
     public async Task<IActionResult> Details(int? id)
     {
         var tournament = await context.Tournaments
@@ -229,51 +229,45 @@ public class TournamentsController(AppDbContext context) : Controller
         await context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
-
-    [Authorize]
+    
     [HttpGet("{id:int}/Teams")]
     public async Task<IActionResult> Teams(int id)
     {
         var teams = await context.Tournaments
             .Include(t => t.TournamentTeams)
             .ThenInclude(tt => tt.Team)
+            .ThenInclude(tt => tt.Creator)
             .Where(t => t.Id == id)
             .SelectMany(t => t.TournamentTeams.Select(tt => tt.Team))
             .ToListAsync();
 
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        if (userId == null)
-        {
-            return NotFound();
-        }
-
+        
         var user = await context.Users
             .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
-        if (user == null)
+        if (userId != null && user != null)
         {
-            return NotFound();
+            var usersTeams = await context.Teams
+                .Where(t => t.CreatorId == user.Id && !context.TournamentTeams
+                    .Any(tt => tt.TeamId == t.Id && tt.TournamentId == id))
+                .ToListAsync();
+
+
+            ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Name
+            }).ToList();
         }
-
-        var usersTeams = await context.Teams
-            .Where(t => t.CreatorId == user.Id && !context.TournamentTeams
-                .Any(tt => tt.TeamId == t.Id && tt.TournamentId == id))
-            .ToListAsync();
-
-
-        ViewBag.UserTeams = usersTeams.Select(t => new SelectListItem
-        {
-            Value = t.Id.ToString(),
-            Text = t.Name
-        }).ToList();
 
         ViewBag.TournamentId = id;
 
         return View(teams);
     }
 
+    [Authorize]
     [HttpPost("{tournamentId:int}/Join")]
     public async Task<IActionResult> Join([FromRoute] int tournamentId, [FromForm] int teamId)
     {
@@ -312,7 +306,8 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Teams", new { id = tournamentId });
     }
 
-    [HttpPost("{tournamentId}/Leave")]
+    [Authorize]
+    [HttpPost("{tournamentId:int}/Leave")]
     public async Task<IActionResult> Leave([FromRoute] int tournamentId, [FromForm] int teamId)
     {
         var tournament = await context.Tournaments.FindAsync(tournamentId);

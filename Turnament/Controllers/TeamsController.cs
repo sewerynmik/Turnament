@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Turnament.Data;
@@ -32,12 +33,14 @@ public class TeamsController(AppDbContext context) : Controller
         return View(team);
     }
 
+    [Authorize]
     [HttpGet("Create")]
     public IActionResult Create()
     {
         return View();
     }
 
+    [Authorize]
     [HttpPost("Create")]
     public async Task<IActionResult> Create(CreateViewModel model)
     {
@@ -58,6 +61,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
+    [Authorize]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -74,6 +78,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(model);
     }
 
+    [Authorize]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -90,6 +95,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
+    [Authorize]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -102,6 +108,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(team);
     }
     
+    [Authorize]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -131,16 +138,20 @@ public class TeamsController(AppDbContext context) : Controller
         return View(teamMembers);
     }
 
+    [Authorize]
     [HttpGet("{id:int}/Invitations")]
     public async Task<IActionResult> TeamInvitation(int? id)
     {
         var team = await context.Teams
-            .Include(t => t.Invitations)
             .FirstOrDefaultAsync(t => t.Id == id);
         
         if (team == null) return NotFound();
+
+        var teamInvitations = await context.TeamInvitations
+            .Include(ti => ti.Team)
+            .Include(ti => ti.InvitedUser)
+            .ToListAsync();
         
-        // TODO
-        return View();
+        return View(teamInvitations);
     }
 }

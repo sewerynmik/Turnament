@@ -9,8 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Turnament/Views/Teams/TeamInvitation.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TeamsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Teams/Details.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +46,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
@@ -115,7 +119,8 @@
       <workItem from="1745846721586" duration="6572000" />
       <workItem from="1746021205716" duration="13169000" />
       <workItem from="1746091153466" duration="3038000" />
-      <workItem from="1746097076192" duration="1912000" />
+      <workItem from="1746097076192" duration="2115000" />
+      <workItem from="1746132004240" duration="2010000" />
     </task>
     <servers />
   </component>

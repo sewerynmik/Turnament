@@ -8,10 +8,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddAuthentication("MyAuth")
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultScheme = "MyAuth";
+        options.DefaultChallengeScheme = "MyAuth";
+    })
     .AddCookie("MyAuth", options =>
     {
-        options.LoginPath = "/Users/Login";
+        options.LoginPath = "/Login";
     });
 
 builder.Services.AddAuthorization();

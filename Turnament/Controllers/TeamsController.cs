@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Turnament.Authorization;
 using Turnament.Data;
 using Turnament.Models;
 using Turnament.ViewModel.Team;
@@ -61,7 +62,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
-    [Authorize]
+    [TeamAuthorization]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -78,7 +79,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(model);
     }
 
-    [Authorize]
+    [TeamAuthorization]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -95,7 +96,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
-    [Authorize]
+    [TeamAuthorization]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -108,7 +109,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(team);
     }
     
-    [Authorize]
+    [TeamAuthorization]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -138,7 +139,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(teamMembers);
     }
 
-    [Authorize]
+    [TeamAuthorization]
     [HttpGet("{id:int}/Invitations")]
     public async Task<IActionResult> TeamInvitation(int? id)
     {

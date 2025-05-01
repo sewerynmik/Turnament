@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Turnament.Authorization;
 using Turnament.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddAppAuthorization();
 
 var app = builder.Build();
 

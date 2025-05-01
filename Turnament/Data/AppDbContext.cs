@@ -3,13 +3,8 @@ using Turnament.Models;
 
 namespace Turnament.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<User> Users { get; set; }
     public DbSet<Sport> Sports { get; set; }
     public DbSet<BracketType> BracketTypes { get; set; }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Turnament.Models;
+﻿namespace Turnament.Models;
 
 public class User
 {

@@ -37,10 +37,10 @@
     <div>
         @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.Creator.Id.ToString())
         {
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edytuj</a>
-            <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Usuń</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edytuj</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Usuń</a>
         }
-        <a asp-action="TeamMembers" asp-route-id="@Model?.Id" class="btn btn-info">Zawodnicy</a>
+        <a asp-action="TeamMembers" asp-route-id="@Model.Id" class="btn btn-info">Zawodnicy</a>
         <a asp-action="Index" class="btn btn-secondary">Wróć do listy</a>
     </div>
 </div>

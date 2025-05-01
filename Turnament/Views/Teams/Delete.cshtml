@@ -28,8 +28,8 @@
 
         <form asp-action="Delete" class="mt-2" style="display: flex; align-items: center; justify-content: center">
             <input type="hidden" asp-for="Id"/>
-            <button asp-action="Index" class="btn btn-primary me-2">Anuluj</button>
-            <button asp-action="Delete" class="btn btn-danger">Usuń</button>
+            <a asp-action="Index" class="btn btn-primary me-2">Anuluj</a>
+            <button type="submit" class="btn btn-danger">Usuń</button>
         </form>
     </div>
 </div>

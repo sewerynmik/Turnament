@@ -39,7 +39,7 @@
     <div>
         @if (User.Identity is { IsAuthenticated: true } && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.Id.ToString())
         {
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
         }
         <a asp-action="Index" class="btn btn-primary">Back to List</a>
     </div>

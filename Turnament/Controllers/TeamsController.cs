@@ -140,7 +140,7 @@ public class TeamsController(AppDbContext context) : Controller
         
         if (team == null) return NotFound();
         
-        
+        // TODO
         return View();
     }
 }

@@ -9,6 +9,7 @@ public static class AuthorizationSetup
         services.AddHttpContextAccessor();
         
         services.AddScoped<IAuthorizationHandler, TeamAuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, TournamentAuthorizationHandler>();
         
         services.AddAuthorization(options =>
         {
@@ -17,6 +18,16 @@ public static class AuthorizationSetup
             
             options.AddPolicy("TeamMember", policy => 
                 policy.Requirements.Add(new TeamRequirement("Member")));
+            
+            options.AddPolicy("TournamentCreator", policy => 
+                policy.Requirements.Add(new TournamentRequirement("Creator")));
+            
+            options.AddPolicy("TeamTournamentCreator", policy =>
+            {
+                policy.Requirements.Add(new TeamRequirement("Creator"));
+                policy.Requirements.Add(new TournamentRequirement("Creator"));
+            });
+            
         });
 
         return services;

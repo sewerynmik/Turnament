@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Turnament.Authorization;
 using Turnament.Data;
 using Turnament.Models;
 using Turnament.ViewModel.Tournament;
@@ -93,7 +94,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = tournament.Id });
     }
 
-    [Authorize]
+    [TournamentCreatorAuthorization]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -145,7 +146,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(model);
     }
 
-    [Authorize]
+    [TournamentCreatorAuthorization]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -196,7 +197,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = tournament.Id });
     }
 
-    [Authorize]
+    [TournamentCreatorAuthorization]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -215,7 +216,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(tournament);
     }
 
-    [Authorize]
+    [TournamentCreatorAuthorization]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
@@ -267,7 +268,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return View(teams);
     }
 
-    [Authorize]
+    [TeamCreatorAuthorization]
     [HttpPost("{tournamentId:int}/Join")]
     public async Task<IActionResult> Join([FromRoute] int tournamentId, [FromForm] int teamId)
     {
@@ -306,7 +307,7 @@ public class TournamentsController(AppDbContext context) : Controller
         return RedirectToAction("Teams", new { id = tournamentId });
     }
 
-    [Authorize]
+    [TeamCreatorOrTournamentCreatorAuthorization]
     [HttpPost("{tournamentId:int}/Leave")]
     public async Task<IActionResult> Leave([FromRoute] int tournamentId, [FromForm] int teamId)
     {

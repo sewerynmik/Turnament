@@ -62,7 +62,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
-    [TeamAuthorization]
+    [TeamCreatorAuthorization]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -79,7 +79,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(model);
     }
 
-    [TeamAuthorization]
+    [TeamCreatorAuthorization]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -96,7 +96,7 @@ public class TeamsController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = team.Id });
     }
 
-    [TeamAuthorization]
+    [TeamCreatorAuthorization]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -109,7 +109,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(team);
     }
     
-    [TeamAuthorization]
+    [TeamCreatorAuthorization]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -139,7 +139,7 @@ public class TeamsController(AppDbContext context) : Controller
         return View(teamMembers);
     }
 
-    [TeamAuthorization]
+    [TeamCreatorAuthorization]
     [HttpGet("{id:int}/Invitations")]
     public async Task<IActionResult> TeamInvitation(int? id)
     {

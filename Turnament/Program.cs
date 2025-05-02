@@ -20,7 +20,6 @@ builder.Services
         options.LoginPath = "/Login";
     });
 
-builder.Services.AddAuthorization();
 builder.Services.AddAppAuthorization();
 
 var app = builder.Build();

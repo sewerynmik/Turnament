@@ -12,8 +12,11 @@ public static class AuthorizationSetup
         
         services.AddAuthorization(options =>
         {
-            options.AddPolicy("TeamCreator", policy =>
-                policy.Requirements.Add(new TeamCreatorRequirement()));
+            options.AddPolicy("Team", policy => 
+                policy.Requirements.Add(new TeamRequirement("Creator")));
+            
+            options.AddPolicy("Team", policy => 
+                policy.Requirements.Add(new TeamRequirement("Member")));
         });
 
         return services;

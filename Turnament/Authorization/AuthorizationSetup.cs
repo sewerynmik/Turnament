@@ -10,6 +10,7 @@ public static class AuthorizationSetup
         
         services.AddScoped<IAuthorizationHandler, TeamAuthorizationHandler>();
         services.AddScoped<IAuthorizationHandler, TournamentAuthorizationHandler>();
+        services.AddScoped<IAuthorizationHandler, UserAuthorizationHandler>();
         
         services.AddAuthorization(options =>
         {

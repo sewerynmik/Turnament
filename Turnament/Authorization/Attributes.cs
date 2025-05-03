@@ -17,9 +17,9 @@ public class TeamCreatorOrTournamentCreatorAuthorizationAttribute : AuthorizeAtt
     public TeamCreatorOrTournamentCreatorAuthorizationAttribute() => Policy = "TeamTournamentCreator";
 }
 
-public class UserAuthorizationAttribute : AuthorizeAttribute
+public class UserCreatorAuthorizationAttribute : AuthorizeAttribute
 {
-    public UserAuthorizationAttribute() => Policy = "User";
+    public UserCreatorAuthorizationAttribute() => Policy = "UserCreator";
 }
 
 public class TeamMemberAuthorizationAttribute : AuthorizeAttribute

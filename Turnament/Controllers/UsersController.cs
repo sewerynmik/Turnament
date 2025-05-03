@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Turnament.Authorization;
 using Turnament.Data;
 using Turnament.Models;
 using Turnament.ViewModel.User;
@@ -28,6 +29,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(user);
     }
 
+    [UserCreatorAuthorization]
     [HttpGet("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -45,6 +47,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(model);
     }
 
+    [UserCreatorAuthorization]
     [HttpPost("{id:int}/Edit")]
     public async Task<IActionResult> Edit(int id, EditViewModel model)
     {
@@ -73,6 +76,7 @@ public class UsersController(AppDbContext context) : Controller
         return RedirectToAction("Details", new { id = user.Id });
     }
 
+    [UserCreatorAuthorization]
     [HttpGet("{id:int}/Delete")]
     public async Task<IActionResult> Delete(int? id)
     {
@@ -84,6 +88,7 @@ public class UsersController(AppDbContext context) : Controller
         return View(user);
     }
 
+    [UserCreatorAuthorization]
     [HttpPost("{id:int}/Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {

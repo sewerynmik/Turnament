@@ -9,9 +9,9 @@ public class UserAuthorizationHandler(AppDbContext context, IHttpContextAccessor
 {
     private readonly AppDbContext _context = context;
 
-    protected override Task<User?> GetResourceAsync(string resourceId)
+    protected override async Task<User?> GetResourceAsync(string resourceId)
     {
-        return _context.Users
+        return await _context.Users
             .FirstOrDefaultAsync(u => u.Id.ToString() == resourceId);
     }
 

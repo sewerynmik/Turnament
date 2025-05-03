@@ -10,10 +10,10 @@
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Authorization/Attributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Authorization/Attributes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Authorization/AuthorizationSetup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Authorization/AuthorizationSetup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Authorization/UserAuthorizationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Authorization/UserAuthorizationHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/UsersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Teams.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/app.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/app.db-wal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +46,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///AIAssistantSnippet.." root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Turnament/Authorization/TeamRequirement.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
@@ -121,7 +122,7 @@
       <workItem from="1746097076192" duration="2115000" />
       <workItem from="1746132004240" duration="8774000" />
       <workItem from="1746188751356" duration="3973000" />
-      <workItem from="1746264997045" duration="1869000" />
+      <workItem from="1746264997045" duration="3304000" />
     </task>
     <servers />
   </component>

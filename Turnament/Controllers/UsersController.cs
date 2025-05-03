@@ -126,7 +126,7 @@ public class UsersController(AppDbContext context) : Controller
         if (user == null) return NotFound();
 
         var teamsMembers = user.TeamMemberships
-            .Where(tm => tm.Id == user.Id)
+            .Where(tm => tm.UserId == user.Id)
             .Select(tm => tm.Team)
             .ToList();
 

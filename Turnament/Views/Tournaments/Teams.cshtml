@@ -8,7 +8,8 @@
 <div style="display: flex; flex-direction: row;justify-content: space-between; align-items: center">
     <h1>Drużyny</h1>
 
-    @if (ViewBag.UserTeams != null && ((List<SelectListItem>)ViewBag.UserTeams).Count > 0 && User.Identity is { IsAuthenticated: true })
+    @if (User.Identity is { IsAuthenticated: true }
+         && User.FindFirst(ClaimTypes.NameIdentifier)?.Value == ViewBag.TournamentId.ToString())
     {
         <form asp-action="Join"
               asp-route-tournamentId="@ViewBag.TournamentId"
@@ -60,7 +61,7 @@
                 <a asp-controller="Teams" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Zobacz</a>
                 @if (User.Identity is { IsAuthenticated: true }
                      && (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == item.CreatorId.ToString() 
-                         || User.FindFirst(ClaimTypes.NameIdentifier)?.Value == ViewBag.TournamentId))
+                         || User.FindFirst(ClaimTypes.NameIdentifier)?.Value == ViewBag.TournamentId.ToString()))
                 {
                     <form
                         asp-action="Leave"

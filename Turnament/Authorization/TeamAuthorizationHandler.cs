@@ -4,15 +4,11 @@ using Turnament.Models;
 
 namespace Turnament.Authorization;
 
-public class TeamAuthorizationHandler : ResourceAuthorizationHandler<TeamRequirement, Team>
+public class TeamAuthorizationHandler(IHttpContextAccessor httpContextAccessor, AppDbContext context)
+    : ResourceAuthorizationHandler<TeamRequirement, Team>(httpContextAccessor, context)
 {
-    private readonly AppDbContext _context;
-    
-    public TeamAuthorizationHandler(IHttpContextAccessor httpContextAccessor, AppDbContext context) : base(httpContextAccessor, context)
-    {
-        _context = context;
-    }
-    
+    private readonly AppDbContext _context = context;
+
     protected override async Task<Team?> GetResourceAsync(string resourceId)
     {
         return await _context.Teams

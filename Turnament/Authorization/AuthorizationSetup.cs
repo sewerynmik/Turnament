@@ -28,6 +28,8 @@ public static class AuthorizationSetup
                 policy.Requirements.Add(new TournamentRequirement("Creator"));
             });
             
+            options.AddPolicy("UserCreator", policy => 
+                policy.Requirements.Add(new UserRequirement("Creator")));
         });
 
         return services;

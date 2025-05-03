@@ -4,23 +4,19 @@ using Turnament.Data;
 
 namespace Turnament.Authorization;
 
-public abstract class ResourceAuthorizationHandler<TRequirement, TResource> 
-    : AuthorizationHandler<TRequirement> where TRequirement : IResourceRequirement
+public abstract class ResourceAuthorizationHandler<TRequirement, TResource>(
+    IHttpContextAccessor httpContextAccessor,
+    AppDbContext context)
+    : AuthorizationHandler<TRequirement>
+    where TRequirement : IResourceRequirement
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private AppDbContext _context;
-
-    protected ResourceAuthorizationHandler(IHttpContextAccessor httpContextAccessor, AppDbContext context)
-    {
-        _httpContextAccessor = httpContextAccessor;
-        _context = context;
-    }
+    private AppDbContext _context = context;
 
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         TRequirement requirement)
     {
-        var httpContext = _httpContextAccessor.HttpContext;
+        var httpContext = httpContextAccessor.HttpContext;
         if (httpContext == null) return;
         
         var routeData = httpContext.GetRouteData();

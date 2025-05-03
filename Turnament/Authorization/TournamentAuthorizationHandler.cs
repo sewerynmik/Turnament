@@ -4,15 +4,11 @@ using Turnament.Models;
 
 namespace Turnament.Authorization;
 
-public class TournamentAuthorizationHandler : ResourceAuthorizationHandler<TournamentRequirement, Tournament>
+public class TournamentAuthorizationHandler(IHttpContextAccessor httpContextAccessor, AppDbContext context)
+    : ResourceAuthorizationHandler<TournamentRequirement, Tournament>(httpContextAccessor, context)
 {
-    private readonly AppDbContext _context;
-    
-    public TournamentAuthorizationHandler(IHttpContextAccessor httpContextAccessor, AppDbContext context) : base(httpContextAccessor, context)
-    {
-        _context = context;
-    }
-    
+    private readonly AppDbContext _context = context;
+
     protected override async Task<Tournament?> GetResourceAsync(string resourceId)
     {
         return await _context.Tournaments

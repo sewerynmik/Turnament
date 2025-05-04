@@ -73,6 +73,12 @@
     <div>
         @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.CreatorId.ToString())
         {
+            <form asp-controller="TournamentBracket" asp-action="Generate" method="post">
+                <input type="hidden" name="tournamentId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">Generuj drabinkę</button>
+            </form>
+
+
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edytuj</a>
             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Usuń</a>
         }

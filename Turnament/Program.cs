@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Turnament.Authorization;
 using Turnament.Data;
+using Turnament.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services
     {
         options.LoginPath = "/Login";
     });
+
+builder.Services.AddScoped<TournamentBracketService>();
 
 builder.Services.AddAppAuthorization();
 

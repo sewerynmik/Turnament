@@ -9,8 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Delete.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/Users/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Users/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +44,9 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///AIAssistantSnippet.." root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TournamentBracketService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Turnament/Authorization/TeamRequirement.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />

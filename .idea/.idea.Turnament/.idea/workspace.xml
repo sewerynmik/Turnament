@@ -10,11 +10,9 @@
   <component name="ChangeListManager">
     <list default="true" id="94d2fba1-8196-4227-92e3-86e61c6748f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Turnament/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Controllers/TournamentBracketController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Controllers/TournamentBracketController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/Views/TournamentBracket/ViewBracket.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/TournamentBracket/ViewBracket.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/Views/Tournaments/Details.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Turnament/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db-shm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Turnament/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Turnament/app.db-wal" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +59,7 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2vaPc64IDJUalQ6lgWdqmVIFntF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -147,23 +146,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -81,7 +81,7 @@
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edytuj</a>
             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Usuń</a>
         }
-        <a asp-controller="TournamentBracket" asp-action="ViewBracket" asp-route-tournamentId="@Model.Id">Zobacz drabinke</a>
+        <a asp-controller="TournamentBracket" asp-action="ViewBracket" asp-route-tournamentId="@Model.Id" class="btn btn-dark">Zobacz drabinke</a>
         <a asp-action="Teams" asp-route-id="@Model.Id" class="btn btn-info">Drużyny</a>
         <a asp-action="Index" class="btn btn-secondary">Wróć do listy</a>
     </div>
